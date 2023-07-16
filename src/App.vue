@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { items } from "./movies.json";
 import MovieList from "@/views/MovieList.vue"
-// import { MovieList } from "@/components/MovieList.vue";
+
 const movies = ref(items)
 
 </script>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue"
-import { StarIcon } from "@heroicons/vue/24/solid";
+import { ref } from "vue";
+import RatingButton from "@/components/RatingButton.vue";
 
 const props = defineProps<{
     image: string,
@@ -12,12 +12,10 @@ const props = defineProps<{
 
 const ratingActual = ref(props.rating);
 
-function greet(rating: number) {
-    ratingActual.value = rating
+function onClickRate(rating: number) {
+    ratingActual.value = rating;
 }
 
-// TODO: Disable the button for the currently selected rating to prevent the user from giving the same rating twice.
-// TODO: Separate buttons 
 </script>
 
 <template>
@@ -46,8 +44,9 @@ function greet(rating: number) {
             <div class="mt-8 flex items-center">
                 <p class="text-gray-600 pr-2">Rating: ({{ ratingActual }} / 5 )</p>
                 <div class="flex">
-                    <StarIcon class="h-8" :class="[ratingActual >= rate ? 'text-yellow-500' : 'text-gray-500']"
-                        v-for="rate in 5" @click="greet(rate)" :id="rate" />
+                    <RatingButton v-for="rate in 5" :ratingActual="ratingActual" :rate="rate"
+                        @click:rate="onClickRate(rate)" />
+                    <!-- isGraterThanOrEqualTo="ratingActual >= rate"  -->
                 </div>
             </div>
         </div>
