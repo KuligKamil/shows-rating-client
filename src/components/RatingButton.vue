@@ -15,8 +15,9 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <button type="button" :disabled="ratingActual == rate" @click="emit('click:rate', rate)">
-        <StarIcon class="h-8"
-            :class="[ratingActual >= rate ? 'text-yellow-500' : 'text-gray-500', ratingActual == rate ? 'pointer-events-none' : '']" />
+    <button type="button"
+        :class="[ratingActual >= rate ? 'text-yellow-500' : 'text-gray-500', ratingActual == rate ? 'disabled:cursor-not-allowed' : '']"
+        :disabled="ratingActual === rate" @click="emit('click:rate', rate)">
+        <StarIcon class="h-8" />
     </button>
 </template>

@@ -7,6 +7,6 @@ const props = defineProps<{
 
 <template>
     <div v-for="{ id, name, image, description, rating, genres } in movies" :key="id">
-        <SummaryCard :name="name" :image="image" :description="description" :rating="rating" :genres="genres" />
+        <SummaryCard :id="id" :name="name" :image="image" :description="description" :rating="rating" :genres="genres" />
     </div>
 </template>

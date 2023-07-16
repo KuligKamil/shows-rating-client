@@ -3,6 +3,7 @@ import { ref } from "vue";
 import RatingButton from "@/components/RatingButton.vue";
 
 const props = defineProps<{
+    id: number,
     image: string,
     name: string,
     genres: string[],
@@ -30,7 +31,7 @@ function onClickRate(rating: number) {
                     {{ name }}
                 </h2>
                 <div class="flex">
-                    <span v-for="gen in genres" key="gen">
+                    <span v-for="gen in genres" :key="`${id}-${genre}`">
                         <span
                             class="inline-flex items-center rounded-xl px-2 py-1 mr-2 text-xs font-medium text-white bg-indigo-500">
                             {{ gen }}
