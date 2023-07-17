@@ -51,7 +51,9 @@ function onClickRate(rating: number) {
                 </p>
             </div>
             <div class="mt-8 flex items-center">
-                <p class="text-gray-600 pr-2">Rating: ({{ ratingActual }} / 5 )</p>
+                <p class="text-gray-600 pr-2">
+                    Rating: ({{ ratingActual ? ratingActual : '-' }} / 5 )
+                </p>
                 <div class="flex">
                     <RatingButton v-for=" rate  in  5" :ratingActual="ratingActual" :rate="rate"
                         @click:rate="onClickRate(rate)" />
