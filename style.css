@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.color-star-with-rate {
+  @apply text-yellow-500
+}
+
+.color-star-without-rate {
+  @apply text-gray-500
+}

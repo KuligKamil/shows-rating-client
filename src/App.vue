@@ -10,13 +10,19 @@ const isOpen = ref(true)
 </script>
 
 <template class="">
-  <dir>
+  <div>
     <button class="rounded-full">Add Movie</button>
-  </dir>
+  </div>
   <div class="mx-auto max-w-7xl">
-    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 mx-0 max-w-none lg:grid-cols-3">
+    <div class="movie-list ">
       <MovieList :movies="movies" />
     </div>
   </div>
   <Modal :isOpen="isOpen" />
 </template>
+
+<style lang="postcss" scoped>
+.movie-list {
+  @apply mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 mx-0 max-w-none grid-cols-3;
+}
+</style>
