@@ -5,20 +5,44 @@ import MovieList from "@/views/MovieList.vue"
 import Modal from "@/components/Modal.vue"
 
 const movies = ref(items)
-const isOpen = ref(true)
+const isOpen = ref(false)
+// set from movies generies
+const genres: string[] = ['Crime', 'Drama', 'Actions']
+function cancel() {
+  isOpen.value = false
+}
 
+function create(movie) {
+  console.log(movie);
+  // console.log(movie.value);
+
+  movie.genres.forEach((item) => {
+    console.log(item)
+  });
+  movies.value.push({
+    id: 9000,
+    name: movie.name,
+    genres: movie.genres,
+    // description: ''
+  })
+  console.log(movies)
+  isOpen.value = false
+
+
+
+}
 </script>
 
 <template class="">
   <div>
-    <button class="rounded-full">Add Movie</button>
+    <button class="rounded-full" @click="isOpen = true">Add Movie</button>
   </div>
   <div class="mx-auto max-w-7xl">
     <div class="movie-list ">
       <MovieList :movies="movies" />
     </div>
   </div>
-  <Modal :isOpen="isOpen" />
+  <Modal title="Add Movie" :isOpen="isOpen" :genres="genres" @cancel="cancel" @create="create" />
 </template>
 
 <style lang="postcss" scoped>
