@@ -63,23 +63,27 @@ function onClickRate(rating: number) {
 }
 
 .summary-card-title {
-    @apply my-3 text-lg font-semibold leading-6 text-gray-900
+    @apply mt-2 text-xl font-semibold leading-3 text-gray-900
+}
+
+
+.summary-card-genre {
+    @apply inline-flex items-center rounded-xl px-2 py-1 mr-2 mt-2 text-xs font-medium text-white bg-indigo-500
+}
+
+
+.summary-card-desc {
+    @apply mt-2 line-clamp-3 text-sm leading-6 text-gray-600
 }
 
 .summary-card-image {
     @apply h-full w-full object-cover object-center rounded-md
 }
 
-.summary-card-desc {
-    @apply mt-5 line-clamp-3 text-sm leading-6 text-gray-600
-}
 
-.summary-card-genre {
-    @apply inline-flex items-center rounded-xl px-2 py-1 mr-2 text-xs font-medium text-white bg-indigo-500
-}
 
 .summary-card-rating-area {
-    @apply mt-8 flex items-center
+    @apply mt-2 flex items-center
 }
 
 .rating-text {
