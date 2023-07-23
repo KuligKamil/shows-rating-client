@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import RatingButton from "@/components/RatingButton.vue";
 import { StarIcon } from "@heroicons/vue/24/solid";
+import { TrashIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps<{
     id: number,
@@ -10,6 +11,10 @@ const props = defineProps<{
     genres: string[],
     description: string,
     rating: number,
+}>()
+
+const emit = defineEmits<{
+    (event: 'delete', id: number)
 }>()
 
 const ratingActual = ref(props.rating);
@@ -49,10 +54,13 @@ function onClickRate(rating: number) {
                     Rating: ( {{ ratingActual ? ratingActual : '-' }} / 5 )
                 </p>
                 <div class="flex">
-                    <RatingButton v-for=" rate  in  5" :ratingActual="ratingActual" :rate="rate"
+                    <RatingButton v-for="rate in 5" :ratingActual="ratingActual" :rate="rate"
                         @click:rate="onClickRate(rate)" />
                     <!-- isGraterThanOrEqualTo="ratingActual >= rate"  -->
                 </div>
+                <button type="button" @click="emit('delete', id)">
+                    <TrashIcon class="h-8" />
+                </button>
             </div>
         </div>
     </article>
@@ -73,7 +81,7 @@ function onClickRate(rating: number) {
 
 
 .summary-card-desc {
-    @apply mt-2 line-clamp-3 text-sm leading-6 text-gray-600
+    @apply mt-2 line-clamp-3 text-sm leading-6 text-gray-600 h-24
 }
 
 .summary-card-image {

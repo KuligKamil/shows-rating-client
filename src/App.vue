@@ -28,6 +28,10 @@ function create(movie) {
   })
   isOpen.value = false
 }
+
+function deleteMovie(id) {
+  movies.value.splice(movies.value.findIndex(movie => movie.id === id), 1);
+}
 </script>
 
 <template>
@@ -37,7 +41,7 @@ function create(movie) {
     </div>
     <div class="content" style="max-height: 80vh;">
       <div class="movie-list">
-        <MovieList :movies="movies" />
+        <MovieList :movies="movies" @delete="deleteMovie" />
       </div>
     </div>
     <Modal title="Add Movie" :isOpen="isOpen" :genres="genres" @cancel="cancel" @create="create" />

@@ -3,10 +3,15 @@ import SummaryCard from "@/components/SummaryCard.vue"
 const props = defineProps<{
     movies: Any[]
 }>()
+const emit = defineEmits<{
+    (event: 'delete', id: number)
+}>()
+
 </script>
 
 <template>
     <div v-for="{ id, name, image, description, rating, genres } in movies" :key="id">
-        <SummaryCard :id="id" :name="name" :image="image" :description="description" :rating="rating" :genres="genres" />
+        <SummaryCard :id="id" :name="name" :image="image" :description="description" :rating="rating" :genres="genres"
+            @delete="emit('delete', id)" />
     </div>
 </template>
