@@ -23,13 +23,10 @@ function create(movie) {
     id: 9000,
     name: movie.name,
     genres: movie.genres,
-    // description: ''
+    image: movie.image,
+    description: movie.description,
   })
-  console.log(movies)
   isOpen.value = false
-
-
-
 }
 </script>
 

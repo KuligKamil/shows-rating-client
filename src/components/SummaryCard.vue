@@ -30,7 +30,7 @@ function onClickRate(rating: number) {
                 </div>
 
             </div>
-            <img :src="image" alt="name" class="summary-card-image" style="height: 550px;">
+            <img :src="image" alt="movie image" class="summary-card-image" style="height: 550px;">
         </div>
         <div class="py-4 px-4">
             <h2 class="summary-card-title">
