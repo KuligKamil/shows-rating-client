@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { Movie } from './models'
 import { items } from '@/movies.json'
 import MovieList from '@/views/MovieList.vue'
@@ -7,8 +7,23 @@ import Modal from '@/components/Modal.vue'
 
 const movies = ref(items)
 const isOpen = ref(false)
+const rates = ref<number>(0)
 // set from movies generies
 const genres: string[] = ['Crime', 'Drama', 'Actions']
+const sum = computed(() => {
+  return movies.value.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + (currentValue.rating || 0)
+    }, 0)
+})
+const averageRate = computed(() => {
+  // rates.value++
+  // const sum = movies.value.filter(x => 'rating' in x)
+
+  return sum.value / movies.value.length
+},
+)
+
 function cancel() {
   isOpen.value = false
 }
@@ -20,12 +35,15 @@ function create(movie: Movie) {
     genres: movie.genres,
     image: movie.image,
     description: movie.description,
-    rating: 0,
+    // rating: ,
     inTheaters: false,
   })
   isOpen.value = false
 }
 
+function rate() {
+  rates.value++
+}
 function deleteMovie(id: number) {
   movies.value.splice(movies.value.findIndex(movie => movie.id === id), 1)
 }
@@ -34,13 +52,16 @@ function deleteMovie(id: number) {
 <template>
   <div class="flex flex-col">
     <div class="header">
+      <div class="text-white">
+        Total movies: {{ movies.length }} / Avarage Rating {{ averageRate }}
+      </div>
       <button class="button" @click="isOpen = true">
         Add Movie
       </button>
     </div>
     <div class="content" style="max-height: 80vh;">
       <div class="movie-list">
-        <MovieList :movies="movies" @delete="deleteMovie" />
+        <MovieList :movies="movies" @delete="deleteMovie" @rate="rate" />
       </div>
     </div>
     <Modal title="Add Movie" :is-open="isOpen" :genres="genres" @cancel="cancel" @create="create" />
@@ -49,7 +70,7 @@ function deleteMovie(id: number) {
 
 <style lang="postcss" scoped>
 .header {
-  @apply m-8 flex flex-row-reverse
+  @apply m-8 flex flex-row
 }
 
 .content {

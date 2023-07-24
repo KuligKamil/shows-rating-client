@@ -7,6 +7,7 @@ defineProps<{
 }>()
 const emit = defineEmits<{
   (event: 'delete', id: number): void
+  (event: 'rate'): void
 }>()
 </script>
 
@@ -14,7 +15,7 @@ const emit = defineEmits<{
   <div v-for="{ id, name, image, description, rating, genres } in movies" :key="id">
     <SummaryCard
       :id="id" :name="name" :image="image" :description="description" :rating="rating" :genres="genres"
-      @delete="emit('delete', id)"
+      @delete="emit('delete', id)" @rate="emit('rate')"
     />
   </div>
 </template>

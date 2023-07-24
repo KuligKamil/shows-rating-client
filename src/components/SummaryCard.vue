@@ -14,12 +14,14 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (event: 'delete', id: number): void
+  (event: 'rate'): void
 }>()
 
 const ratingActual = ref(props.rating)
 
 function onClickRate(rating: number) {
   ratingActual.value = rating
+  emit('rate')
 }
 </script>
 
