@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { items } from "./movies.json";
-import MovieList from "@/views/MovieList.vue"
-import Button from "@/views/MovieList.vue"
-import Modal from "@/components/Modal.vue"
+import { ref } from 'vue'
+import type { Movie } from './models'
+import { items } from '@/movies.json'
+import MovieList from '@/views/MovieList.vue'
+import Modal from '@/components/Modal.vue'
 
 const movies = ref(items)
 const isOpen = ref(false)
@@ -13,44 +13,43 @@ function cancel() {
   isOpen.value = false
 }
 
-function create(movie) {
-  console.log(movie);
-
-  movie.genres.forEach((item) => {
-    console.log(item)
-  });
+function create(movie: Movie) {
   movies.value.push({
     id: 9000,
     name: movie.name,
     genres: movie.genres,
     image: movie.image,
     description: movie.description,
+    rating: 0,
+    inTheaters: false,
   })
   isOpen.value = false
 }
 
-function deleteMovie(id) {
-  movies.value.splice(movies.value.findIndex(movie => movie.id === id), 1);
+function deleteMovie(id: number) {
+  movies.value.splice(movies.value.findIndex(movie => movie.id === id), 1)
 }
 </script>
 
 <template>
   <div class="flex flex-col">
     <div class="header">
-      <button class="button" @click="isOpen = true">Add Movie</button>
+      <button class="button" @click="isOpen = true">
+        Add Movie
+      </button>
     </div>
     <div class="content" style="max-height: 80vh;">
       <div class="movie-list">
         <MovieList :movies="movies" @delete="deleteMovie" />
       </div>
     </div>
-    <Modal title="Add Movie" :isOpen="isOpen" :genres="genres" @cancel="cancel" @create="create" />
+    <Modal title="Add Movie" :is-open="isOpen" :genres="genres" @cancel="cancel" @create="create" />
   </div>
 </template>
 
 <style lang="postcss" scoped>
 .header {
-  @apply m-8 flex flex flex-row-reverse
+  @apply m-8 flex flex-row-reverse
 }
 
 .content {
