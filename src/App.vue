@@ -41,8 +41,8 @@ function create(movie: Movie) {
   isOpen.value = false
 }
 
-function rate() {
-  rates.value++
+function rate(id: number, rating: number) {
+  movies.value.filter(x => x.id === id).map(x => x.rating = rating)
 }
 function deleteMovie(id: number) {
   movies.value.splice(movies.value.findIndex(movie => movie.id === id), 1)

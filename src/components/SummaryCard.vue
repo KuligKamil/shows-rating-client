@@ -14,14 +14,14 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (event: 'delete', id: number): void
-  (event: 'rate'): void
+  (event: 'rate', id: number, rate: number): any
 }>()
 
 const ratingActual = ref(props.rating)
 
-function onClickRate(rating: number) {
+function onClickRate(id: number, rating: number) {
   ratingActual.value = rating
-  emit('rate')
+  emit('rate', id, rating)
 }
 </script>
 
@@ -56,7 +56,7 @@ function onClickRate(rating: number) {
           <RatingButton
             v-for="rate in 5" :key="rate"
             :rating-actual="ratingActual" :rate="rate"
-            @click:rate="onClickRate(rate)"
+            @click:rate="onClickRate(id, rate)"
           />
           <!-- isGraterThanOrEqualTo="ratingActual >= rate"  -->
         </div>
