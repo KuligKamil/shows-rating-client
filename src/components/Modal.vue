@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { Movie } from '@/models'
 
 defineProps<{
   title: string
   isOpen: boolean
   genres: string[]
 }>()
+
 const emit = defineEmits<{
   (event: 'cancel'): void
-  (event: 'create', movie: any): void
+  (event: 'create', movie: Movie): void
 }>()
-const name = ref<string>()
-const description = ref<string>()
-const image = ref<string>()
+
+const name = ref<string>('')
+const description = ref<string>('')
+const image = ref<string>('')
 const multiSelected = ref<string[]>([])
 
 function onSubmit() {
-  emit('create', { name: name.value, genres: multiSelected.value, description: description.value, image: image.value })
+  emit('create', { id: 7, name: name.value, genres: multiSelected.value, description: description.value, image: image.value, inTheaters: true })
   name.value = ''
   description.value = ''
   multiSelected.value = []

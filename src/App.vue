@@ -7,22 +7,12 @@ import Modal from '@/components/Modal.vue'
 
 const movies = ref(items)
 const isOpen = ref(false)
-const rates = ref<number>(0)
 // set from movies generies
 const genres: string[] = ['Crime', 'Drama', 'Actions']
-const sum = computed(() => {
-  return movies.value.reduce(
-    (accumulator, currentValue) => {
-      return accumulator + (currentValue.rating || 0)
-    }, 0)
-})
-const averageRate = computed(() => {
-  // rates.value++
-  // const sum = movies.value.filter(x => 'rating' in x)
 
-  return sum.value / movies.value.length
-},
-)
+const sum = computed(() => movies.value.reduce((accumulator, currentValue) => accumulator + (currentValue.rating || 0), 0))
+
+const averageRate = computed(() => sum.value / movies.value.length)
 
 function cancel() {
   isOpen.value = false
@@ -30,13 +20,12 @@ function cancel() {
 
 function create(movie: Movie) {
   movies.value.push({
-    id: 9000,
+    id: movie.id,
     name: movie.name,
     genres: movie.genres,
     image: movie.image,
     description: movie.description,
-    // rating: ,
-    inTheaters: false,
+    inTheaters: movie.inTheaters,
   })
   isOpen.value = false
 }
@@ -44,6 +33,7 @@ function create(movie: Movie) {
 function rate(id: number, rating: number) {
   movies.value.filter(x => x.id === id).map(x => x.rating = rating)
 }
+
 function deleteMovie(id: number) {
   movies.value.splice(movies.value.findIndex(movie => movie.id === id), 1)
 }
@@ -53,7 +43,7 @@ function deleteMovie(id: number) {
   <div class="flex flex-col">
     <div class="header">
       <div class="text-white">
-        Total movies: {{ movies.length }} / Avarage Rating {{ averageRate }}
+        Total movies: {{ movies.length }} / Average Rating {{ averageRate }}
       </div>
       <button class="button" @click="isOpen = true">
         Add Movie

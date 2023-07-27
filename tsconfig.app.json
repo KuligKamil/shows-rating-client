@@ -4,11 +4,11 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
-        "src/**/*.json",
-        "movies.json",
-        "api/**/*.ts",
-        "tests/**/*.ts",
-        "*.ts"
+    "src/**/*.json",
+    "movies.json",
+    "api/**/*.ts",
+    "tests/**/*.ts",
+    "*.ts"
   ],
   "exclude": [
     "src/**/__tests__/*"

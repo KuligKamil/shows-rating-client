@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { StarIcon, TrashIcon } from '@heroicons/vue/24/solid'
 import RatingButton from '@/components/RatingButton.vue'
 
-const props = defineProps<{
+defineProps<{
   id: number
   image: string
   name: string
@@ -14,15 +13,8 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (event: 'delete', id: number): void
-  (event: 'rate', id: number, rate: number): any
+  (event: 'rate', id: number, rate: number): void
 }>()
-
-const ratingActual = ref(props.rating)
-
-function onClickRate(id: number, rating: number) {
-  ratingActual.value = rating
-  emit('rate', id, rating)
-}
 </script>
 
 <template>
@@ -30,8 +22,8 @@ function onClickRate(id: number, rating: number) {
     <div class="overflow-hidden max-h-[500px] w-full relative">
       <div class="absolute top-0 right-0">
         <div class="relative flex justify-center items-center">
-          <StarIcon class="h-16" :class="[ratingActual ? 'color-star-with-rate' : 'color-star-without-rate']" />
-          <span class="absolute">{{ ratingActual }}</span>
+          <StarIcon class="h-16" :class="[rating ? 'color-star-with-rate' : 'color-star-without-rate']" />
+          <span class="absolute">{{ rating }}</span>
         </div>
       </div>
       <img :src="image" alt="movie image" class="summary-card-image" style="height: 550px;">
@@ -50,15 +42,14 @@ function onClickRate(id: number, rating: number) {
       </p>
       <div class="summary-card-rating-area">
         <p class="rating-text">
-          Rating: ( {{ ratingActual ? ratingActual : '-' }} / 5 )
+          Rating: ( {{ rating ? rating : '-' }} / 5 )
         </p>
         <div class="flex">
           <RatingButton
             v-for="rate in 5" :key="rate"
-            :rating-actual="ratingActual" :rate="rate"
-            @click:rate="onClickRate(id, rate)"
+            :rating-actual="rating" :rate="rate"
+            @click:rate="emit('rate', id, rate)"
           />
-          <!-- isGraterThanOrEqualTo="ratingActual >= rate"  -->
         </div>
         <button type="button" @click="emit('delete', id)">
           <TrashIcon class="h-8" />
