@@ -33,6 +33,13 @@ function create(movie: Movie) {
 function rate(id: number, rating: number) {
   movies.value.filter(x => x.id === id).map(x => x.rating = rating)
 }
+function removeRatings() {
+  movies.value.map(movie => delete movie.rating)
+  // working but not perfect
+  // movies.value.map(movie => movie.rating = 0)
+  // not assignment for each movie
+  // movies.value.map(({ 'rating': _, ...rest }) => rest)
+}
 
 function deleteMovie(id: number) {
   movies.value.splice(movies.value.findIndex(movie => movie.id === id), 1)
@@ -45,6 +52,9 @@ function deleteMovie(id: number) {
       <div class="text-white">
         Total movies: {{ movies.length }} / Average Rating {{ averageRate }}
       </div>
+      <button class="button" @click="removeRatings">
+        Remove Ratings
+      </button>
       <button class="button" @click="isOpen = true">
         Add Movie
       </button>
